@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Toggle Visibility</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+      margin-left: 10px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #4caf50;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .random-box {
+      display: none;
+      padding: 20px;
+      background-color: #f9c74f;
+      color: #000;
+      border-radius: 8px;
+      width: 300px;
+      margin: 0 auto;
+      transition: opacity 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Random Visibility Toggle</h1>
+
+  <div class="toggle-container">
+    <label for="randomToggle">Show Hidden Element?</label>
+    <label class="switch">
+      <input type="checkbox" id="randomToggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div id="randomBox" class="random-box">
+    🎉 Surprise! This element randomly appears!
+  </div>
+
+  <script>
+    const toggle = document.getElementById('randomToggle');
+    const box = document.getElementById('randomBox');
+
+    toggle.addEventListener('change', () => {
+      if (toggle.checked) {
+        const shouldShow = Math.random() < 0.5; // 50% chance
+        console.log("Toggle is ON. Should show:", shouldShow);
+        box.style.display = shouldShow ? 'block' : 'none';
+      } else {
+        box.style.display = 'none';
+        console.log("Toggle is OFF");
+      }
+    });
+  </script>
+
+</body>
+</html>
