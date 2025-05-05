@@ -86,7 +86,8 @@
     });
 
     function toggleVisibility() {
-      const shouldShow = toggle.checked;
+      const shouldShow = toggle.checked &&  Math.random() > 0.5; // 50% chance to show;
+      console.log("Toggle is ON. Should show:", shouldShow);
 
       boxes.forEach((box, i) => {
         const hideClass = originalHideClasses[i];
