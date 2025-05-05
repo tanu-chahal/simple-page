@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Visibility Toggle</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    .box {
+      width: 160px;
+      height: 40px;
+      background-color: #4f46e5;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 6px 0;
+      transition: all 0.3s ease;
+    }
+
+    .hidden-display {
+      display: none;
+    }
+
+    .hidden-visibility {
+      visibility: hidden;
+    }
+
+    .hidden-opacity {
+      opacity: 0;
+    }
+
+    .hidden-size {
+      width: 0 !important;
+      height: 0 !important;
+      overflow: hidden;
+      padding: 0;
+      font-size: 0;
+    }
+
+    .hidden-clip {
+      clip-path: inset(100%);
+      position: absolute;
+    }
+
+    .hidden-scale {
+      transform: scale(0);
+    }
+
+    .hidden-offscreen {
+      position: absolute;
+      left: -9999px;
+    }
+
+    .toggle-btn {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="toggle-btn" onclick="toggleVisibility()">Toggle Elements</button>
+
+  <div id="box1" class="box">Element 1</div>
+  <div id="box2" class="box">Element 2</div>
+  <div id="box3" class="box">Element 3</div>
+  <div id="box4" class="box">Element 4</div>
+  <div id="box5" class="box">Element 5</div>
+  <div id="box6" class="box">Element 6</div>
+  <div id="box7" class="box">Element 7</div>
+
+  <script>
+    let visible = false;
+
+    const hidingClasses = [
+      'hidden-display',
+      'hidden-visibility',
+      'hidden-opacity',
+      'hidden-size',
+      'hidden-clip',
+      'hidden-scale',
+      'hidden-offscreen'
+    ];
+
+    const elements = [];
+    for (let i = 1; i <= 7; i++) {
+      elements.push(document.getElementById(`box${i}`));
+    }
+
+    function resetAll() {
+      elements.forEach(el => {
+        el.className = 'box';
+        el.style = '';
+      });
+    }
+
+    function hideAllDifferently() {
+      const shuffled = hidingClasses.sort(() => Math.random() - 0.5);
+      shuffled.forEach((cls, i) => {
+        elements[i].classList.add(cls);
+      });
+    }
+
+    function toggleVisibility() {
+      visible = !visible;
+      resetAll();
+
+      if (!visible) {
+        hideAllDifferently();
+      }
+    }
+
+    // Initial state: hidden using different techniques
+    hideAllDifferently();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Visibility Toggle Demo</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    .switch {
+      margin-bottom: 20px;
+    }
+
+    .box {
+      width: 200px;
+      height: 40px;
+      background-color: #4f46e5;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 50px;
+      /* transition: all 0.3s ease; */
+    }
+
+    .hidden-display {
+      display: none;
+    }
+
+    .hidden-visibility {
+      visibility: hidden;
+    }
+
+    .hidden-opacity {
+      opacity: 0;
+    }
+
+    .hidden-size {
+      width: 0 !important;
+      height: 0 !important;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .hidden-clip {
+      clip-path: inset(100%);
+      position: absolute;
+    }
+
+    .hidden-scale {
+      transform: scale(0);
+    }
+
+    .hidden-offscreen {
+      position: absolute;
+      left: -9999px;
+    }
+  </style>
+</head>
+<body>
+
+  <label class="switch">
+    <input type="checkbox" id="visibilityToggle" onchange="toggleVisibility()" />
+    Show Elements
+  </label>
+
+  <div id="container">
+    <div id="box1" class="box hidden-display">display: none</div>
+    <div id="box2" class="box hidden-visibility">visibility: hidden</div>
+    <div id="box3" class="box hidden-opacity">opacity: 0</div>
+    <div id="box4" class="box hidden-size">0x0 size</div>
+    <div id="box5" class="box hidden-clip">clip-path</div>
+    <div id="box6" class="box hidden-scale">scale(0)</div>
+    <div id="box7" class="box hidden-offscreen">offscreen</div>
+  </div>
+
+  <script>
+    const toggle = document.getElementById("visibilityToggle");
+    const boxes = Array.from(document.querySelectorAll(".box"));
+
+    // Store the initial hidden class for each element
+    const originalHideClasses = boxes.map(box => {
+      return Array.from(box.classList).find(cls => cls.startsWith("hidden-"));
+    });
+
+    function toggleVisibility() {
+      const shouldShow = toggle.checked;
+
+      boxes.forEach((box, i) => {
+        const hideClass = originalHideClasses[i];
+        if (shouldShow) {
+          box.classList.remove(hideClass);
+        } else {
+          box.classList.add(hideClass);
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
